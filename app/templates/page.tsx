@@ -5,7 +5,7 @@ import { categories, featured } from "@/lib/data";
 
 type Props = { searchParams: Promise<{ cat?: string }> };
 
-export const metadata = { title: "Templates â Lekha" };
+export const metadata = { title: "Templates — Lekha" };
 
 export default async function TemplatesPage({ searchParams }: Props) {
   const sp = await searchParams;
