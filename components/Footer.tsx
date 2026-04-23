@@ -12,8 +12,7 @@ export default function Footer() {
               Lekha
             </Link>
             <p>
-              Legal documents, done right. Starting in India, expanding
-              worldwide. A project of{" "}
+              Legal documents, done right. Starting in India, expanding worldwide. A project of{" "}
               <a href="https://elevana.guru" style={{ color: "var(--gold-300)" }}>
                 Elevana
               </a>
@@ -24,10 +23,19 @@ export default function Footer() {
             <h4>Templates</h4>
             <ul>
               <li><Link href="/templates?cat=compliance">Compliance</Link></li>
-              <li><Link href="/templates?cat=hr">HR &amp; Employment</Link></li>
-              <li><Link href="/templates?cat=contracts">Contracts</Link></li>
+              <li><Link href="/templates?cat=hr">HR &amp; Workplace</Link></li>
+              <li><Link href="/templates?cat=business">Business &amp; Legal</Link></li>
               <li><Link href="/templates?cat=property">Property</Link></li>
               <li><Link href="/templates?cat=personal">Personal &amp; Family</Link></li>
+            </ul>
+          </div>
+          <div className="foot-col">
+            <h4>Tools</h4>
+            <ul>
+              <li><Link href="/redactor">Document Redactor</Link></li>
+              <li><Link href="/templates/nda">NDA generator</Link></li>
+              <li><Link href="/templates/rental-agreement">Rental Agreement</Link></li>
+              <li><Link href="/templates/salary-slip">Salary Slip</Link></li>
             </ul>
           </div>
           <div className="foot-col">
@@ -38,25 +46,10 @@ export default function Footer() {
               <li><Link href="/earn#ambassador">Ambassador Panel</Link></li>
             </ul>
           </div>
-          <div className="foot-col">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="https://elevana.guru">About Elevana</a></li>
-              <li><Link href="/accessibility">Accessibility</Link></li>
-              <li><Link href="/support">Support</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-            </ul>
-          </div>
         </div>
         <div className="foot-bottom">
           <span>© {new Date().getFullYear()} Elevana. All rights reserved.</span>
           <span className="legal">
-            <Link href="/terms">Terms</Link>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/disclaimer">Disclaimer</Link>
-          </span>
-        </div>
-      </div>
-    </footer>
-  );
-}
+            <a href="https://elevana.guru/privacy-policy/">Privacy</a>
+            <a href="https://elevana.guru/terms-and-conditions/">Terms</a>
+            <a href="https://ele

@@ -11,7 +11,7 @@ export default function Nav() {
         </Link>
         <nav className="nav-links" aria-label="Main">
           <Link href="/templates">Templates</Link>
-          <Link href="/#why">Why Lekha</Link>
+          <Link href="/redactor">Redactor</Link>
           <Link href="/earn">Earn</Link>
           <Link href="/templates" className="nav-cta">
             Browse templates <span aria-hidden="true">→</span>
@@ -20,4 +20,3 @@ export default function Nav() {
       </div>
     </header>
   );
-}

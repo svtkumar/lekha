@@ -140,7 +140,7 @@ export default function Home() {
           </div>
           <div className="featured">
             {featured.map((t) => (
-              <article key={t.slug} className={`tpl${t.hero ? " tpl-hero" : ""}`}>
+              <Link key={t.slug} href={`/templates/${t.slug}`} className={`tpl${t.hero ? " tpl-hero" : ""}`}>
                 <span className="tpl-tag">{t.tag}</span>
                 <h3>{t.title}</h3>
                 <p>{t.summary}</p>
@@ -156,7 +156,7 @@ export default function Home() {
                   </span>
                   <span className="tpl-arrow">→</span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
@@ -208,7 +208,4 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
-    </>
-  );
-}
+      <F

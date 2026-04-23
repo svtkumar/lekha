@@ -1,60 +1,49 @@
 # Lekha — Next.js
 
-Next.js 15 app for Lekha, the legal document templates service by Elevana.
+Legal document generator + PII redactor for India and beyond.
 
-Intended live at **lekha.elevana.guru** (Vercel). `elevana.guru/lekha` redirects here.
+Live at **lekha.elevana.guru**. `elevana.guru/lekha` redirects here.
 
 ## Stack
 
-- Next.js 15 (App Router)
-- React 19
-- TypeScript
-- Vanilla CSS (no Tailwind) — Lekha design tokens in `app/globals.css`
-- Playfair Display + Inter from Google Fonts
+- Next.js 15 (App Router) · React 19 · TypeScript
+- Vanilla CSS (no Tailwind) · Playfair Display + Inter
+- **Document generation**: `docx`, `pdfkit`, `exceljs` — server-side in Next.js API routes
+- **Redaction**: `mammoth` (DOCX→text), `pdf-lib` (PDF structure) + custom pattern engine
 
-## Local dev
+## Architecture
 
-```bash
-npm install
-npm run dev
 ```
-
-Open http://localhost:3000.
-
-## Routes
-
-| Path | What's there |
-|---|---|
-| `/` | Landing page (hero, trust, why, categories, featured, earn, CTA) |
-| `/templates` | Category grid; template detail pages TBD |
-| `/earn` | Affiliate, Assist, Ambassador |
-
-## Data
-
-Templates and categories live in `lib/data.ts`. Landing page cards read from there. Add a new template → it shows up on `/` and `/templates` automatically.
-
-## Deploying to Vercel
-
-1. Push this folder to a GitHub repo (e.g. `elevana/lekha-next`)
-2. At vercel.com → New Project → Import the repo → accept defaults → Deploy
-3. After the first deploy succeeds, Vercel gives you a `*.vercel.app` URL — confirm it renders
-4. In Vercel project → Settings → Domains → add `lekha.elevana.guru`
-5. Vercel shows the DNS record you need. At your DNS provider (WordPress.com domain settings → DNS), add a CNAME:
-   - Name: `lekha`
-   - Value: `cname.vercel-dns.com`
-   - TTL: default
-6. Wait ~5 min for DNS. Lekha is live at `lekha.elevana.guru`.
-
-## The `elevana.guru/lekha` redirect
-
-Once Vercel is live, update the WordPress page at /lekha to redirect here. Either:
-- Via WP Admin → Page 1931 → replace content with a meta refresh to `https://lekha.elevana.guru/`
-- Or ask Claude to do it through the WordPress.com MCP (one call — update page 1931 content)
-
-## What's next
-
-- Template detail pages (`/templates/[slug]`) with guided fill-in forms
-- DOCX generation server-side (docx.js or python-docx via API route)
-- Affiliate tracking cookie + dashboard
-- Ambassador upload flow
-- Payment integration (UPI via Razorpay or similar)
+app/
+  page.tsx                     Landing
+  templates/
+    page.tsx                   Browse (?cat= filters)
+    [slug]/page.tsx            Template detail + fill-online form
+  earn/page.tsx                Earn with Lekha
+  redactor/page.tsx            Document Redactor UI
+  api/
+    generate/[slug]/route.ts   POST form values → PDF/DOCX/XLSX
+    redact/route.ts            POST text or file → redacted output
+components/
+  Nav, Footer, BrandMark
+  TemplateForm                 Client component, renders from schema
+  RedactorClient               Client component, file / text modes
+lib/
+  templates/
+    types.ts                   DocSection IR, TemplateModule type
+    categories.ts              5 categories
+    registry.ts                35 templates (3 live, 32 stubs)
+    modules/
+      nda.ts                   Live — full clauses + fields
+      rental-agreement.ts      Live — full clauses + fields
+      salary-slip.ts           Live — PDF + XLSX support
+  generators/
+    pdf.ts                     DocSection IR → PDF (pdfkit)
+    docx.ts                    DocSection IR → DOCX (docx lib)
+    xlsx.ts                    DocSection IR → XLSX (ExcelJS)
+    index.ts                   renderFormat(format, sections, opts)
+  redactor/
+    patterns.ts                Pattern packs: universal, IN, US, UK, EU, SG, AU, CA
+    service.ts                 redactText() — text in, text + hits out
+    docx-redact.ts             redactDocxBuffer() — DOCX in, redacted DOCX out
+    pdf-redact.ts              redactPdfBuffer(
