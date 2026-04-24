@@ -28,12 +28,13 @@ export function redactText(text: string, opts: RedactOptions = {}): RedactionRes
   const countries = opts.countries && opts.countries.length > 0 ? opts.countries : ["IN"];
   const mode = opts.mode || "label";
 
-  // Apply universal first, then country packs in order
-  const active: Pattern[] = [...packs.universal.patterns];
+  // Country packs first (most specific), universal last (fallback only)
+  const active: Pattern[] = [];
   for (const c of countries) {
     const pack = packs[c];
     if (pack) active.push(...pack.patterns);
   }
+  active.push(...packs.universal.patterns);
 
   // Collect all hits first (non-overlapping, preferring higher-signal labels)
   const hits: RedactionHit[] = [];
