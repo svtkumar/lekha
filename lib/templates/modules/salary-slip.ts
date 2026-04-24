@@ -78,7 +78,7 @@ export const salarySlip: TemplateModule = {
       ["Medical Allowance", num("ss_medical")],
       ["Special Allowance", num("ss_special")],
       ["Bonus", num("ss_bonus")],
-        ].filter(([, v]) => Number(v) > 0) as [string, number][];
+    ].filter(([, v]) => Number(v) > 0) as [string, number][];
 
     const deductions: [string, number][] = [
       ["Provident Fund (PF)", num("ss_pf")],
@@ -86,7 +86,7 @@ export const salarySlip: TemplateModule = {
       ["Professional Tax", num("ss_pt")],
       ["Income Tax (TDS)", num("ss_tds")],
       ["Other Deductions", num("ss_other_deduct")],
-        ].filter(([, v]) => Number(v) > 0) as [string, number][];
+    ].filter(([, v]) => Number(v) > 0) as [string, number][];
 
     const gross = earnings.reduce((a, [, v]) => a + v, 0);
     const totalDeductions = deductions.reduce((a, [, v]) => a + v, 0);
