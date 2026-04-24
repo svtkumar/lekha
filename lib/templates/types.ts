@@ -111,3 +111,11 @@ export function formatDate(isoOrDmy: string): string {
 export function sanitizeFilename(s: string): string {
   return s.replace(/[^A-Za-z0-9\-_]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 80) || "document";
 }
+
+export type StyleProfile = "legal" | "corporate" | "slip";
+
+export function profileFor(categoryId: string, templateId?: string): StyleProfile {
+  if (templateId === "salary-slip" || templateId === "fnf-settlement") return "slip";
+  if (categoryId === "hr") return "corporate";
+  return "legal"; // property, personal, business, compliance
+}
