@@ -20,7 +20,7 @@ export async function renderXlsx(
 ): Promise<Buffer> {
   const wb = new ExcelJS.Workbook();
   wb.creator = opts.author || "Lekha";
-  wb.title = opts.title;
+  wb.title = opts.title || "";
 
   const ws = wb.addWorksheet(opts.sheetName || "Document", {
     pageSetup: { paperSize: 9, orientation: "portrait", fitToPage: true },
