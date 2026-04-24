@@ -175,7 +175,7 @@ export async function GET() {
       templates_total: templateResults.length,
       templates_ok: templateResults.filter((r) => r.ok && r.magicOk).length,
       templates_profile_compliant: templateResults.filter((r) =>
-        r.fmt !== \"docx\" || (r.fontOk && r.sizeOk && r.marginOk && r.lineOk)
+        r.fmt !== "docx" || (r.fontOk && r.sizeOk && r.marginOk && r.lineOk)
       ).length,
       templates_fail: templateFail.length,
       redactor_total: redactorResults.length,
@@ -185,5 +185,5 @@ export async function GET() {
     },
     templates: templateResults,
     redactor: redactorResults,
-  }, { status: overall === \"PASS\" ? 200 : 500 });
+  }, { status: overall === "PASS" ? 200 : 500 });
 }
