@@ -16,7 +16,7 @@ const NAVY = "0a2f6e", GOLD = "c9a84c", INK = "17243d", MUTED = "4a566e", CREAM 
  */
 const PROFILES: Record<StyleProfile, {
   font: string; bodyHP: number; titleHP: number; subtitleHP: number; clauseTitleHP: number;
-  lineSpacing: number; marginTwip: number; bodyAlign: typeof AlignmentType.JUSTIFIED;
+  lineSpacing: number; marginTwip: number; bodyAlign: (typeof AlignmentType)[keyof typeof AlignmentType];
 }> = {
   legal: {
     font: "Times New Roman", bodyHP: 24, titleHP: 36, subtitleHP: 20, clauseTitleHP: 25,
