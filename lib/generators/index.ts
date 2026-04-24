@@ -1,4 +1,4 @@
-import type { DocSection, OutputFormat } from "../templates/types";
+import type { DocSection, OutputFormat, StyleProfile } from "../templates/types";
 import { renderPdf } from "./pdf";
 import { renderDocx } from "./docx";
 import { renderXlsx } from "./xlsx";
@@ -14,7 +14,10 @@ export const mimeFor = {
 export async function renderFormat(
   format: OutputFormat,
   sections: DocSection[],
-  opts: { title?: string; author?: string; footerText?: string; sheetName?: string } = {}
+  opts: {
+    title?: string; author?: string; footerText?: string;
+    sheetName?: string; profile?: StyleProfile;
+  } = {}
 ): Promise<Buffer> {
   if (format === "pdf") return renderPdf(sections, opts);
   if (format === "docx") return renderDocx(sections, opts);
