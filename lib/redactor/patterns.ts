@@ -53,7 +53,7 @@ export const india: PatternPack = {
       validate: (m) => verhoeff(m.replace(/\D/g, "")),
       replaceWith: "mask",
     },
-    { id: "phone_in", label: "Indian mobile", regex: /\b(?:\+?91[ \-]?)?[6-9]\d{9}\b/g, replaceWith: "mask" },
+    { id: "phone_in", label: "Indian mobile", regex: /\b(?:\+?91[ \-]?)?[6-9](?:[ \-]?\d){9}\b/g, replaceWith: "mask" },
     { id: "ifsc_in", label: "IFSC", regex: /\b[A-Z]{4}0[A-Z0-9]{6}\b/g, replaceWith: "label" },
     { id: "gstin_in", label: "GSTIN", regex: /\b\d{2}[A-Z]{5}\d{4}[A-Z][A-Z0-9]Z[A-Z0-9]\b/g, replaceWith: "label" },
     { id: "bank_acct_in", label: "Bank account", regex: /\b\d{9,18}\b/g, replaceWith: "mask" },
@@ -72,7 +72,7 @@ export const us: PatternPack = {
     { id: "ssn_us", label: "SSN", regex: /\b(?!000|666|9\d{2})\d{3}[\- ]?(?!00)\d{2}[\- ]?(?!0000)\d{4}\b/g, replaceWith: "mask" },
     { id: "ein_us", label: "EIN", regex: /\b\d{2}\-\d{7}\b/g, replaceWith: "label" },
     { id: "itin_us", label: "ITIN", regex: /\b9\d{2}[\- ]?(?:7\d|8\d)[\- ]?\d{4}\b/g, replaceWith: "mask" },
-    { id: "phone_us", label: "US phone", regex: /\b(?:\+?1[ \-]?)?\(?[2-9]\d{2}\)?[ \-]?[2-9]\d{2}[ \-]?\d{4}\b/g, replaceWith: "mask" },
+    { id: "phone_us", label: "US phone", regex: /(?:\+?1[ \-\.]?)?\(?[2-9]\d{2}\)?[ \-\.]?[1-9]\d{2}[ \-\.]?\d{4}\b/g, replaceWith: "mask" },
     { id: "zip_us", label: "US ZIP", regex: /\b\d{5}(?:\-\d{4})?\b/g, replaceWith: "label" },
     { id: "routing_us", label: "ABA routing", regex: /\b[0123678]\d{8}\b/g, validate: abaChecksum, replaceWith: "label" },
   ],
@@ -244,6 +244,7 @@ function abaChecksum(m: string): boolean {
 // Brazilian CPF algorithm
 function cpfValid(cpf: string): boolean {
   if (!/^\d{11}$/.test(cpf)) return false;
+  if (/^(\d)\1+$/.test(cpf)) return false;
   let sum = 0;
   for (let i = 0; i < 9; i++) sum += parseInt(cpf[i], 10) * (10 - i);
   let rem = (sum * 10) % 11;
