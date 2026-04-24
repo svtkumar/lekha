@@ -52,4 +52,10 @@ export default function Footer() {
           <span className="legal">
             <a href="https://elevana.guru/privacy-policy/">Privacy</a>
             <a href="https://elevana.guru/terms-and-conditions/">Terms</a>
-            <a href="https://ele
+            <a href="https://elevana.guru/cookie-policy/">Cookies</a>
+          </span>
+        </div>
+      </div>
+    </footer>
+  );
+}

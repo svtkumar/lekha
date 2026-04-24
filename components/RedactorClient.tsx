@@ -30,7 +30,6 @@ export default function RedactorClient() {
     redactedText?: string;
     hits: number;
     summary: Record<string, number>;
-    details?: { pattern: string; label: string; original: string; replacement: string }[];
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -99,7 +98,7 @@ export default function RedactorClient() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      setResult({ hits, summary: {}, details: [] });
+      setResult({ hits, summary: {} });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Network error");
     } finally {
@@ -107,7 +106,7 @@ export default function RedactorClient() {
     }
   };
 
-  const chipStyle = (active: boolean): React.CSSProperties => ({
+  const chip = (active: boolean): React.CSSProperties => ({
     padding: "6px 12px",
     borderRadius: 999,
     border: `1px solid ${active ? "var(--navy-800)" : "var(--line)"}`,
@@ -129,23 +128,21 @@ export default function RedactorClient() {
 
   return (
     <>
-      {/* Settings */}
       <div style={card}>
         <h3 style={{ fontFamily: "var(--display)", fontSize: 18, margin: "0 0 14px", color: "var(--navy-900)" }}>
           Settings
         </h3>
-
         <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 8 }}>
           Country pattern packs
         </label>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
           {COUNTRIES.map((c) => (
-            <span key={c.code} style={chipStyle(countries.includes(c.code))} onClick={() => toggleCountry(c.code)}>
+            <span key={c.code} style={chip(countries.includes(c.code))} onClick={() => toggleCountry(c.code)}>
               {c.name} · {c.code}
             </span>
           ))}
           <small style={{ width: "100%", color: "var(--ink-muted)", fontSize: 12, marginTop: 4 }}>
-            Universal patterns (email, credit card, IBAN) always apply. Tip: turn on only what's relevant to avoid false positives.
+            Universal patterns (email, credit card, IBAN) always apply.
           </small>
         </div>
 
@@ -154,7 +151,7 @@ export default function RedactorClient() {
         </label>
         <div style={{ display: "flex", gap: 8, marginBottom: 18 }}>
           {(["label", "black", "mask"] as Mode[]).map((m) => (
-            <span key={m} style={chipStyle(mode === m)} onClick={() => setMode(m)}>
+            <span key={m} style={chip(mode === m)} onClick={() => setMode(m)}>
               {m === "label" ? "[REDACTED-LABEL]" : m === "black" ? "█████" : "Last 4 visible"}
             </span>
           ))}
@@ -172,24 +169,16 @@ export default function RedactorClient() {
           rows={3}
           value={customTerms}
           onChange={(e) => setCustomTerms(e.target.value)}
-          placeholder="Acme Corp&#10;Project Phoenix"
-          style={{
-            width: "100%",
-            padding: "10px 12px",
-            border: "1px solid var(--line)",
-            borderRadius: 8,
-            fontSize: 13,
-            fontFamily: "inherit",
-          }}
+          placeholder="Acme Corp"
+          style={{ width: "100%", padding: "10px 12px", border: "1px solid var(--line)", borderRadius: 8, fontSize: 13, fontFamily: "inherit" }}
         />
       </div>
 
-      {/* Tabs */}
       <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
-        <span style={chipStyle(tab === "text")} onClick={() => setTab("text")}>
+        <span style={chip(tab === "text")} onClick={() => setTab("text")}>
           Paste text
         </span>
-        <span style={chipStyle(tab === "file")} onClick={() => setTab("file")}>
+        <span style={chip(tab === "file")} onClick={() => setTab("file")}>
           Upload file (DOCX · PDF · TXT)
         </span>
       </div>
@@ -203,16 +192,8 @@ export default function RedactorClient() {
             rows={10}
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Paste or type any text — emails, ID numbers, phone numbers, addresses will be found and replaced…"
-            style={{
-              width: "100%",
-              padding: "12px 14px",
-              border: "1px solid var(--line)",
-              borderRadius: 8,
-              fontSize: 13,
-              fontFamily: "ui-monospace, monospace",
-              lineHeight: 1.5,
-            }}
+            placeholder="Paste any text — emails, IDs, phones, addresses will be found and replaced."
+            style={{ width: "100%", padding: "12px 14px", border: "1px solid var(--line)", borderRadius: 8, fontSize: 13, fontFamily: "ui-monospace, monospace", lineHeight: 1.5 }}
           />
           <button
             type="button"
@@ -236,7 +217,7 @@ export default function RedactorClient() {
             style={{ fontSize: 14 }}
           />
           <p style={{ color: "var(--ink-muted)", fontSize: 12, marginTop: 8 }}>
-            DOCX and TXT are fully redacted with layout reset. PDF text extraction is limited — if yours is an image-only PDF, first convert to DOCX.
+            DOCX and TXT are fully redacted. PDF text extraction is limited — for image PDFs convert to DOCX first.
           </p>
           <button
             type="button"
@@ -251,17 +232,7 @@ export default function RedactorClient() {
       )}
 
       {error && (
-        <div
-          style={{
-            background: "rgba(220,38,38,0.07)",
-            border: "1px solid rgba(220,38,38,0.25)",
-            color: "#991b1b",
-            padding: "12px 16px",
-            borderRadius: 10,
-            marginTop: 12,
-            fontSize: 14,
-          }}
-        >
+        <div style={{ background: "rgba(220,38,38,0.07)", border: "1px solid rgba(220,38,38,0.25)", color: "#991b1b", padding: "12px 16px", borderRadius: 10, marginTop: 12, fontSize: 14 }}>
           {error}
         </div>
       )}
@@ -278,15 +249,7 @@ export default function RedactorClient() {
                 readOnly
                 rows={10}
                 value={result.redactedText}
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  border: "1px solid var(--line)",
-                  borderRadius: 8,
-                  fontSize: 13,
-                  fontFamily: "ui-monospace, monospace",
-                  background: "#faf8f3",
-                }}
+                style={{ width: "100%", padding: "12px 14px", border: "1px solid var(--line)", borderRadius: 8, fontSize: 13, fontFamily: "ui-monospace, monospace", background: "#faf8f3" }}
               />
               <button
                 className="btn btn-ghost"
@@ -299,21 +262,18 @@ export default function RedactorClient() {
           )}
           {Object.keys(result.summary).length > 0 && (
             <div style={{ marginTop: 16 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Counts by type
-              </label>
+              <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>Counts by type</label>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                 {Object.entries(result.summary).map(([k, v]) => (
-                  <span
-                    key={k}
-                    style={{
-                      padding: "4px 10px",
-                      borderRadius: 999,
-                      background: "rgba(201,168,76,0.14)",
-                      color: "var(--gold-500)",
-                      fontSize: 12,
-                      fontWeight: 600,
-                    }}
-                  >
+                  <span key={k} style={{ padding: "4px 10px", borderRadius: 999, background: "rgba(201,168,76,0.14)", color: "var(--gold-500)", fontSize: 12, fontWeight: 600 }}>
                     {k}: {v}
-  
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}

@@ -208,4 +208,8 @@ export default function Home() {
         </div>
       </section>
 
-      <F
+
+      <Footer />
+    </>
+  );
+}
