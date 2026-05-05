@@ -15,6 +15,32 @@ import { terminationLetter } from "./modules/termination-letter";
 import { relievingLetter } from "./modules/relieving-letter";
 import { giftDeed } from "./modules/gift-deed";
 import { leaseAgreement } from "./modules/lease-agreement";
+import { affidavitGeneral } from "./modules/affidavit-general";
+import { boardResolutionAllotment } from "./modules/board-resolution-allotment";
+import { boardResolutionDirector } from "./modules/board-resolution-director";
+import { consultancyAgreement } from "./modules/consultancy-agreement";
+import { copyrightAssignment } from "./modules/copyright-assignment";
+import { distributionAgreement } from "./modules/distribution-agreement";
+import { franchiseAgreement } from "./modules/franchise-agreement";
+import { freelancerAgreement } from "./modules/freelancer-agreement";
+import { gstInvoice } from "./modules/gst-invoice";
+import { hrAppointmentLetter } from "./modules/hr-appointment-letter";
+import { hrNdaEmployee } from "./modules/hr-nda-employee";
+import { hrRelievingLetter } from "./modules/hr-relieving-letter";
+import { jointVentureAgreement } from "./modules/joint-venture-agreement";
+import { legalNoticeGeneral } from "./modules/legal-notice-general";
+import { nocLetter } from "./modules/noc-letter";
+import { patentLicence } from "./modules/patent-licence";
+import { poshComplaintProcedure } from "./modules/posh-complaint-procedure";
+import { professionalTaxChallan } from "./modules/professional-tax-challan";
+import { relinquishmentDeed } from "./modules/relinquishment-deed";
+import { rentAgreement } from "./modules/rent-agreement";
+import { saleDeed } from "./modules/sale-deed";
+import { shareCertificate } from "./modules/share-certificate";
+import { startupNdia } from "./modules/startup-ndia";
+import { tdsCertificateForm16 } from "./modules/tds-certificate-form16";
+import { trademarkAssignment } from "./modules/trademark-assignment";
+import { willTestament } from "./modules/will-testament";
 
 const modules: Record<string, TemplateModule> = {
   [nda.meta.id]: nda,
@@ -33,13 +59,38 @@ const modules: Record<string, TemplateModule> = {
   [relievingLetter.meta.id]: relievingLetter,
   [giftDeed.meta.id]: giftDeed,
   [leaseAgreement.meta.id]: leaseAgreement,
+  [affidavitGeneral.meta.id]: affidavitGeneral,
+  [boardResolutionAllotment.meta.id]: boardResolutionAllotment,
+  [boardResolutionDirector.meta.id]: boardResolutionDirector,
+  [consultancyAgreement.meta.id]: consultancyAgreement,
+  [copyrightAssignment.meta.id]: copyrightAssignment,
+  [distributionAgreement.meta.id]: distributionAgreement,
+  [franchiseAgreement.meta.id]: franchiseAgreement,
+  [freelancerAgreement.meta.id]: freelancerAgreement,
+  [gstInvoice.meta.id]: gstInvoice,
+  [hrAppointmentLetter.meta.id]: hrAppointmentLetter,
+  [hrNdaEmployee.meta.id]: hrNdaEmployee,
+  [hrRelievingLetter.meta.id]: hrRelievingLetter,
+  [jointVentureAgreement.meta.id]: jointVentureAgreement,
+  [legalNoticeGeneral.meta.id]: legalNoticeGeneral,
+  [nocLetter.meta.id]: nocLetter,
+  [patentLicence.meta.id]: patentLicence,
+  [poshComplaintProcedure.meta.id]: poshComplaintProcedure,
+  [professionalTaxChallan.meta.id]: professionalTaxChallan,
+  [relinquishmentDeed.meta.id]: relinquishmentDeed,
+  [rentAgreement.meta.id]: rentAgreement,
+  [saleDeed.meta.id]: saleDeed,
+  [shareCertificate.meta.id]: shareCertificate,
+  [startupNdia.meta.id]: startupNdia,
+  [tdsCertificateForm16.meta.id]: tdsCertificateForm16,
+  [trademarkAssignment.meta.id]: trademarkAssignment,
+  [willTestament.meta.id]: willTestament,
 };
 
 const stubs: TemplateMeta[] = [
   // Property (remaining)
   { id: "leave-license", name: "Leave & License", categoryId: "property", category: "Property", country: ["IN"], formats: ["pdf", "docx"], description: "Required in Maharashtra. Licensed-premises agreement.", aliases: ["maharashtra rent", "licensee"], pages: 8, status: "stub" },
   { id: "sale-agreement", name: "Sale Agreement", categoryId: "property", category: "Property", country: ["IN"], formats: ["pdf", "docx"], description: "Agreement to sell immovable property with payment milestones.", aliases: ["agreement to sell", "ATS"], pages: 12, status: "stub" },
-  { id: "sale-deed", name: "Sale Deed", categoryId: "property", category: "Property", country: ["IN"], formats: ["pdf", "docx"], description: "Conveyance deed for property ownership transfer.", aliases: ["conveyance deed"], pages: 10, status: "stub" },
   { id: "mortgage-deed", name: "Mortgage Deed", categoryId: "property", category: "Property", country: ["IN"], formats: ["pdf", "docx"], description: "Simple, English, or equitable mortgage formats.", aliases: ["english mortgage", "equitable mortgage"], pages: 12, status: "stub" },
 
   // HR (remaining)
@@ -78,6 +129,32 @@ export const allMeta: TemplateMeta[] = [
   relievingLetter.meta,
   giftDeed.meta,
   leaseAgreement.meta,
+  affidavitGeneral.meta,
+  boardResolutionAllotment.meta,
+  boardResolutionDirector.meta,
+  consultancyAgreement.meta,
+  copyrightAssignment.meta,
+  distributionAgreement.meta,
+  franchiseAgreement.meta,
+  freelancerAgreement.meta,
+  gstInvoice.meta,
+  hrAppointmentLetter.meta,
+  hrNdaEmployee.meta,
+  hrRelievingLetter.meta,
+  jointVentureAgreement.meta,
+  legalNoticeGeneral.meta,
+  nocLetter.meta,
+  patentLicence.meta,
+  poshComplaintProcedure.meta,
+  professionalTaxChallan.meta,
+  relinquishmentDeed.meta,
+  rentAgreement.meta,
+  saleDeed.meta,
+  shareCertificate.meta,
+  startupNdia.meta,
+  tdsCertificateForm16.meta,
+  trademarkAssignment.meta,
+  willTestament.meta,
   ...stubs,
 ];
 
