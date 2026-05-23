@@ -31,6 +31,12 @@ export const categories: Category[] = [
     emoji: "🛡️",
     description: "DPDP, Vendor DPAs, InfoSec, board resolutions.",
   },
+  {
+    id: "dharma",
+    name: "Dharma · Governance",
+    emoji: "⚖️",
+    description: "Governance policies aligned to DPDP Act 2023, GDPR and ISO 27001 — built to pass the Dharma audit.",
+  },
 ];
 
 export function categoryById(id: string): Category | undefined {

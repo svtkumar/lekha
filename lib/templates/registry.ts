@@ -59,6 +59,8 @@ import { dpdpPrivacyNotice } from "./modules/dpdp-privacy-notice";
 import { vendorDpa } from "./modules/vendor-dpa";
 import { boardResolution } from "./modules/board-resolution";
 import { infosecPolicy } from "./modules/infosec-policy";
+// Dharma — governance category
+import { dataGovernancePolicy } from "./modules/data-governance-policy";
 
 const modules: Record<string, TemplateModule> = {
   [nda.meta.id]: nda,
@@ -121,6 +123,7 @@ const modules: Record<string, TemplateModule> = {
   [vendorDpa.meta.id]: vendorDpa,
   [boardResolution.meta.id]: boardResolution,
   [infosecPolicy.meta.id]: infosecPolicy,
+  [dataGovernancePolicy.meta.id]: dataGovernancePolicy,
 };
 
 const stubs: TemplateMeta[] = [];
@@ -186,6 +189,8 @@ export const allMeta: TemplateMeta[] = [
   vendorDpa.meta,
   boardResolution.meta,
   infosecPolicy.meta,
+  // Dharma
+  dataGovernancePolicy.meta,
   ...stubs,
 ];
 
