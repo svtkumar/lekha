@@ -7,7 +7,7 @@ export const warningLetter: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf"],
+    formats: ["pdf", "docx"],
     description: "Formal written warning to an employee for misconduct, policy violation, or poor performance. Covers first warning, final warning, and show-cause notice variants.",
     aliases: ["misconduct", "warning letter", "show cause notice", "SCN", "disciplinary letter", "final warning"],
     pages: 2,

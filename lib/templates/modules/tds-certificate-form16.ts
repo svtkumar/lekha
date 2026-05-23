@@ -24,7 +24,7 @@ export const tdsCertificateForm16: TemplateModule = {
     categoryId: "compliance",
     category: "Tax & Compliance",
     country: ["IN"],
-    formats: ["pdf", "docx"],
+    formats: ["pdf", "docx", "xlsx"],
     description:
       "Form 16 working sheet — TDS certificate for salary income. Covers Part A (TDS deducted and deposited quarter-wise, TRACES-generated data) and Part B (detailed income computation: gross salary, exemptions, deductions, taxable income, tax under old and new regime). Mandatory issuance by employer by 15 June each year.",
     aliases: [

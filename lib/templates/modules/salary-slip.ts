@@ -8,7 +8,7 @@ export const salarySlip: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf", "xlsx"],
+    formats: ["pdf", "docx", "xlsx"],
     description: "Monthly payslip with PF, ESI, professional tax, and income tax deductions.",
     aliases: ["payslip", "monthly pay"],
     pages: 1,

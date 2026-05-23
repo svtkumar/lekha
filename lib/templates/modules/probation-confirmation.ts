@@ -7,7 +7,7 @@ export const probationConfirmation: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf"],
+    formats: ["pdf", "docx"],
     description: "Confirmation of probation completion letter. Formally confirms permanent employment status, revised benefits, and salary revision (if any) on successful completion of the probationary period.",
     aliases: ["regularisation", "confirmation letter", "probation completion", "permanent employment"],
     pages: 1,

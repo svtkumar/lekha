@@ -7,7 +7,7 @@ export const fnfSettlement: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf", "xlsx"],
+    formats: ["pdf", "docx", "xlsx"],
     description: "Exit settlement letter with leave encashment, gratuity calculation, notice pay, and deductions. Generates itemised settlement statement for departing employees.",
     aliases: ["FnF", "exit settlement", "full and final", "f&f settlement", "employee settlement"],
     pages: 2,

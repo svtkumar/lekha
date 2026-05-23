@@ -21,7 +21,7 @@ export const gstInvoice: TemplateModule = {
     categoryId: "compliance",
     category: "Tax & Compliance",
     country: ["IN"],
-    formats: ["pdf", "docx"],
+    formats: ["pdf", "docx", "xlsx"],
     description:
       "GST-compliant tax invoice for supply of goods or services. Covers B2B and B2C transactions, IGST (inter-state) and CGST+SGST (intra-state), HSN/SAC codes, reverse charge mechanism, and e-invoicing IRN/QR code fields. Mandatory fields as per CGST Rules 2017 Rule 46.",
     aliases: [

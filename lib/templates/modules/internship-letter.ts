@@ -7,7 +7,7 @@ export const internshipLetter: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf"],
+    formats: ["pdf", "docx"],
     description: "Internship offer letter with stipend, project details, duration, confidentiality clause, and IP assignment. Suitable for college students and fresh graduates.",
     aliases: ["intern offer", "stipend letter", "internship letter", "trainee offer"],
     pages: 2,
