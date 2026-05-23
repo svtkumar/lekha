@@ -4,83 +4,76 @@ import Footer from "@/components/Footer";
 import { frameworks } from "@/lib/dharma/frameworks";
 
 export const metadata = {
-  title: "Governance Dashboard — Dharma · Lekha",
+  title: "Control Register — Dharma · Lekha",
   description:
-    "The control register Dharma checks for: every obligation across the DPDP Act 2023, GDPR and ISO/IEC 27001:2022.",
+    "Every obligation Dharma checks for, across the DPDP Act 2023, GDPR and ISO/IEC 27001:2022.",
 };
 
 const totalControls = frameworks.reduce((a, f) => a + f.controls.length, 0);
 
 export default function DharmaDashboardPage() {
-  const card: React.CSSProperties = {
-    background: "#fff",
-    border: "1px solid var(--line)",
-    borderRadius: 14,
-    padding: 24,
-    marginBottom: 16,
-  };
-
   return (
-    <>
+    <div className="dh">
       <Nav />
-      <section className="hero" style={{ padding: "48px 0 24px" }}>
-        <div className="container">
-          <span className="eyebrow">Dharma · Governance</span>
-          <h1 className="hero-title" style={{ fontSize: "clamp(28px, 3.4vw, 44px)", margin: "14px 0 14px" }}>
-            Control register
+
+      <header className="dh-hero" style={{ padding: "72px 0 52px" }}>
+        <div className="container dh-hero-inner">
+          <span className="dh-kicker">Dharma · Control register</span>
+          <h1 className="dh-h1" style={{ fontSize: "clamp(34px, 4vw, 48px)" }}>
+            What &ldquo;good&rdquo; looks like.
           </h1>
-          <p className="hero-sub" style={{ maxWidth: 700 }}>
-            This is the full set of obligations Dharma scans for — {totalControls} controls across{" "}
-            {frameworks.length} frameworks. Run the{" "}
-            <Link href="/dharma/audit" style={{ color: "var(--navy-800)", textDecoration: "underline" }}>compliance audit</Link>{" "}
-            to score a document against them.
+          <p className="dh-lede">
+            The full set of obligations Dharma scans for — {totalControls} controls across {frameworks.length}{" "}
+            frameworks. Run the audit to score a document against every one.
           </p>
+          <div className="dh-cta-row">
+            <Link href="/dharma/audit" className="btn btn-primary">
+              Run an audit <span className="btn-arrow" aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      <section className="dh-section" style={{ paddingTop: 56, paddingBottom: 56 }}>
+        <div className="container">
+          <div className="dh-trust">
+            {frameworks.map((f) => (
+              <div key={f.id} className="dh-trust-item">
+                <div className="n">{f.controls.length}</div>
+                <div className="l">{f.name} controls</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="band" style={{ padding: "24px 0 96px" }}>
-        <div className="container" style={{ maxWidth: 980 }}>
-          <div style={{ ...card, display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-            {frameworks.map((f) => (
-              <div key={f.id} style={{ minWidth: 160 }}>
-                <div style={{ fontFamily: "var(--display)", fontSize: 26, fontWeight: 700, color: "var(--navy-900)" }}>
-                  {f.controls.length}
-                </div>
-                <div style={{ fontSize: 13, color: "var(--ink-muted)" }}>{f.name} controls</div>
-              </div>
-            ))}
-            <div style={{ marginLeft: "auto" }}>
-              <Link href="/dharma/audit" className="btn btn-primary">Run an audit →</Link>
-            </div>
-          </div>
-
+      <section className="dh-section" style={{ paddingTop: 8, paddingBottom: 88 }}>
+        <div className="container" style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           {frameworks.map((f) => (
-            <div key={f.id} style={card}>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-                <h2 style={{ fontFamily: "var(--display)", fontSize: 22, margin: "0 0 2px", color: "var(--navy-900)" }}>{f.name}</h2>
-                <span style={{ fontSize: 12, color: "var(--ink-muted)" }}>{f.authority}</span>
+            <div key={f.id} className="dh-reg">
+              <div className="dh-reg-head">
+                <h3>{f.name}</h3>
+                <span className="auth">{f.authority}</span>
               </div>
-              <p style={{ color: "var(--ink-muted)", fontSize: 14, margin: "6px 0 16px", maxWidth: 760 }}>{f.summary}</p>
-              <div style={{ display: "grid", gridTemplateColumns: "minmax(180px, 1fr) 2fr", gap: 4, fontSize: 13 }}>
-                <div style={{ fontWeight: 700, borderBottom: "1px solid var(--line)", padding: "6px 4px", color: "var(--navy-900)" }}>Control</div>
-                <div style={{ fontWeight: 700, borderBottom: "1px solid var(--line)", padding: "6px 4px", color: "var(--navy-900)" }}>Obligation</div>
+              <p className="dh-reg-sum">{f.summary}</p>
+              <div style={{ marginTop: 8 }}>
                 {f.controls.map((c) => (
-                  <div key={c.id} style={{ display: "contents" }}>
-                    <div style={{ padding: "8px 4px", borderBottom: "1px solid var(--line)", fontWeight: 600, color: "var(--ink)" }}>{c.title}</div>
-                    <div style={{ padding: "8px 4px", borderBottom: "1px solid var(--line)", color: "var(--ink-muted)" }}>{c.requirement}</div>
+                  <div key={c.id} className="dh-row">
+                    <div className="ctrl"><span className="tag">Control</span>{c.title}</div>
+                    <div className="obl">{c.requirement}</div>
                   </div>
                 ))}
               </div>
             </div>
           ))}
-
-          <p style={{ color: "var(--ink-muted)", fontSize: 13, marginTop: 8 }}>
-            Heuristic gap-finder — guidance for review, not legal advice or certification.
-          </p>
+          <div className="dh-note">
+            <span aria-hidden="true" style={{ fontSize: 18 }}>⚖️</span>
+            <span><strong>Heuristic gap-finder.</strong> Guidance for review — not legal advice or certification.</span>
+          </div>
         </div>
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }

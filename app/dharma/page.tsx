@@ -7,117 +7,124 @@ import { listByCategory } from "@/lib/templates/registry";
 export const metadata = {
   title: "Dharma — Governance & Compliance · Lekha",
   description:
-    "Dharma is Lekha's governance hub: audit policies against DPDP Act 2023, GDPR and ISO 27001, generate compliance documents, and track your control coverage.",
+    "Dharma is Lekha's compliance workspace: audit a policy against the DPDP Act 2023, GDPR and ISO 27001, close the gaps with vetted documents, and see your control coverage.",
 };
 
 const totalControls = frameworks.reduce((a, f) => a + f.controls.length, 0);
 
 export default function DharmaPage() {
   const dharmaTemplates = listByCategory("dharma");
-
-  const card: React.CSSProperties = {
-    background: "#fff",
-    border: "1px solid var(--line)",
-    borderRadius: 14,
-    padding: 28,
-    height: "100%",
-  };
+  const tplCount = dharmaTemplates.length;
 
   return (
-    <>
+    <div className="dh">
       <Nav />
-      <section className="hero" style={{ padding: "72px 0 40px" }}>
-        <div className="container">
-          <span className="eyebrow">Dharma · Governance &amp; compliance</span>
-          <h1 className="hero-title" style={{ fontSize: "clamp(34px, 4vw, 56px)", margin: "16px 0 16px" }}>
-            Do the right thing, <em>provably.</em>
+
+      {/* Hero */}
+      <header className="dh-hero">
+        <div className="container dh-hero-inner">
+          <span className="dh-kicker">Dharma · Governance &amp; Compliance</span>
+          <h1 className="dh-h1">
+            Compliance you can <em>prove.</em>
           </h1>
-          <p className="hero-sub" style={{ maxWidth: 700 }}>
-            Dharma brings Lekha&apos;s compliance tooling under one roof: audit an existing policy for gaps,
-            draft governance documents from vetted templates, and see your coverage against the frameworks
-            that matter — the DPDP Act 2023, GDPR and ISO/IEC 27001:2022.
+          <p className="dh-lede">
+            A guided workspace for data governance. Audit an existing policy against the frameworks that
+            matter, see exactly where the gaps are, and close them with documents built to the same standard
+            — all without a single file leaving your browser.
           </p>
-          <div className="btn-row" style={{ marginTop: 24 }}>
+          <div className="dh-cta-row">
             <Link href="/dharma/audit" className="btn btn-primary">
               Run a compliance audit <span className="btn-arrow" aria-hidden="true">→</span>
             </Link>
-            <Link href="/dharma/dashboard" className="btn btn-ghost">
-              View governance dashboard
-            </Link>
+            <Link href="/dharma/dashboard" className="btn btn-ghost">View the control register</Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Trust signals */}
+      <section className="dh-section" style={{ paddingTop: 56, paddingBottom: 56 }}>
+        <div className="container">
+          <div className="dh-trust">
+            <div className="dh-trust-item"><div className="n">{frameworks.length}</div><div className="l">Frameworks covered</div></div>
+            <div className="dh-trust-item"><div className="n">{totalControls}</div><div className="l">Controls scanned</div></div>
+            <div className="dh-trust-item"><div className="n">0</div><div className="l">Data stored server-side</div></div>
+            <div className="dh-trust-item"><div className="n">PDF·DOCX</div><div className="l">Audit-ready output</div></div>
           </div>
         </div>
       </section>
 
-      <div className="trust">
-        <div className="container trust-inner">
-          <div className="trust-item"><div className="num">{frameworks.length}</div><div className="lbl">Frameworks covered</div></div>
-          <div className="trust-item"><div className="num">{totalControls}</div><div className="lbl">Controls scanned</div></div>
-          <div className="trust-item"><div className="num">0</div><div className="lbl">Data stored server-side</div></div>
-          <div className="trust-item"><div className="num">DOCX</div><div className="lbl">Audit-ready documents</div></div>
-        </div>
-      </div>
-
-      <section className="band" style={{ padding: "56px 0" }}>
+      {/* Onboarding: how it works */}
+      <section className="dh-section">
         <div className="container">
-          <div className="band-head">
-            <span className="eyebrow">Three ways in</span>
-            <h2>Audit, draft, and track — in one place.</h2>
-            <p>Dharma reuses the engine behind the Redactor to read your documents on the fly. Nothing is uploaded to permanent storage.</p>
+          <div className="dh-shead">
+            <span className="dh-eyebrow">How it works</span>
+            <h2 className="dh-h2">Three steps from policy to proof.</h2>
+            <p className="dh-stext">
+              Dharma reads your document on the fly using the same engine as the Redactor. Nothing is uploaded
+              to permanent storage.
+            </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20, marginTop: 32 }}>
-            <div style={card}>
-              <h3 style={{ fontFamily: "var(--display)", fontSize: 20, margin: "0 0 8px", color: "var(--navy-900)" }}>Compliance audit</h3>
-              <p style={{ color: "var(--ink-muted)", fontSize: 14, margin: "0 0 16px" }}>
-                Paste or upload a policy and get a control-by-control gap report with a coverage score per framework.
-              </p>
-              <Link href="/dharma/audit" className="btn btn-ghost">Open the audit tool →</Link>
+          <div className="dh-steps">
+            <div className="dh-step">
+              <span className="dh-step-n">1</span>
+              <h3>Audit a policy</h3>
+              <p>Paste or upload a privacy notice, DPA or security policy. Dharma scores it control-by-control against each framework you select.</p>
+              <Link href="/dharma/audit" className="dh-step-link">Open the audit tool <span aria-hidden="true">→</span></Link>
             </div>
-            <div style={card}>
-              <h3 style={{ fontFamily: "var(--display)", fontSize: 20, margin: "0 0 8px", color: "var(--navy-900)" }}>Governance templates</h3>
-              <p style={{ color: "var(--ink-muted)", fontSize: 14, margin: "0 0 16px" }}>
-                Generate privacy notices, DPAs and security policies that already speak the language of the frameworks.
-              </p>
-              <Link href="/templates?cat=dharma" className="btn btn-ghost">
-                {dharmaTemplates.length > 0 ? `Browse ${dharmaTemplates.length} template${dharmaTemplates.length === 1 ? "" : "s"} →` : "Browse templates →"}
+            <div className="dh-step">
+              <span className="dh-step-n">2</span>
+              <h3>See the gaps</h3>
+              <p>Get a coverage score and a plain-English list of what&apos;s addressed, what&apos;s partial, and what&apos;s missing — per obligation.</p>
+              <Link href="/dharma/dashboard" className="dh-step-link">Browse the controls <span aria-hidden="true">→</span></Link>
+            </div>
+            <div className="dh-step">
+              <span className="dh-step-n">3</span>
+              <h3>Close them</h3>
+              <p>Generate governance documents that already speak the language of the frameworks, in PDF or DOCX.</p>
+              <Link href={`/templates?cat=dharma`} className="dh-step-link">
+                {tplCount > 0 ? `Browse ${tplCount} template${tplCount === 1 ? "" : "s"}` : "Browse templates"} <span aria-hidden="true">→</span>
               </Link>
             </div>
-            <div style={card}>
-              <h3 style={{ fontFamily: "var(--display)", fontSize: 20, margin: "0 0 8px", color: "var(--navy-900)" }}>Governance dashboard</h3>
-              <p style={{ color: "var(--ink-muted)", fontSize: 14, margin: "0 0 16px" }}>
-                See every framework and the controls Dharma checks for, so you know what &quot;good&quot; looks like.
-              </p>
-              <Link href="/dharma/dashboard" className="btn btn-ghost">Open the dashboard →</Link>
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="band" style={{ padding: "0 0 96px" }}>
+      {/* Frameworks */}
+      <section className="dh-section">
         <div className="container">
-          <div className="band-head">
-            <span className="eyebrow">Frameworks</span>
-            <h2>What Dharma understands.</h2>
+          <div className="dh-shead">
+            <span className="dh-eyebrow">Coverage</span>
+            <h2 className="dh-h2">The frameworks Dharma understands.</h2>
+            <p className="dh-stext">Three of the standards that most often gate enterprise deals and regulatory reviews.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginTop: 32 }}>
+          <div className="dh-fw-grid">
             {frameworks.map((f) => (
-              <div key={f.id} style={card}>
-                <h3 style={{ fontFamily: "var(--display)", fontSize: 19, margin: "0 0 4px", color: "var(--navy-900)" }}>{f.name}</h3>
-                <div style={{ fontSize: 12, color: "var(--ink-muted)", marginBottom: 10 }}>{f.authority}</div>
-                <p style={{ color: "var(--ink-muted)", fontSize: 14, margin: "0 0 12px" }}>{f.summary}</p>
-                <span style={{ padding: "3px 10px", borderRadius: 999, background: "rgba(201,168,76,0.16)", color: "var(--gold-500)", fontSize: 12, fontWeight: 600 }}>
-                  {f.controls.length} controls
-                </span>
-              </div>
+              <article key={f.id} className="dh-fw">
+                <h3 className="dh-fw-name">{f.name}</h3>
+                <p className="dh-fw-auth">{f.authority}</p>
+                <p className="dh-fw-sum">{f.summary}</p>
+                <span className="dh-pill">{f.controls.length} controls</span>
+              </article>
             ))}
           </div>
-          <p style={{ color: "var(--ink-muted)", fontSize: 13, marginTop: 24, maxWidth: 720 }}>
-            Dharma is a heuristic gap-finder built to guide your review — it is not legal advice or a
-            certification. Always have material compliance decisions reviewed by a qualified professional.
-          </p>
+        </div>
+      </section>
+
+      {/* Reassurance */}
+      <section className="dh-section" style={{ paddingTop: 64, paddingBottom: 88 }}>
+        <div className="container">
+          <div className="dh-note">
+            <span aria-hidden="true" style={{ fontSize: 18, lineHeight: 1.2 }}>⚖️</span>
+            <span>
+              <strong>A guide, not a guarantee.</strong> Dharma is a heuristic gap-finder that helps you direct
+              a review — it is not legal advice or a certification. Material compliance decisions should always
+              be confirmed by a qualified professional.
+            </span>
+          </div>
         </div>
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }
