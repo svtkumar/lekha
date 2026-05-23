@@ -155,6 +155,90 @@ export async function renderPdf(
             doc.moveDown(0.6);
             break;
           }
+          case "cover": {
+            doc.moveDown(2);
+            doc.fillColor(NAVY).font(P.boldFont).fontSize(P.titleSize + 4)
+              .text(s.title, { align: "center" });
+            doc.moveDown(0.4).strokeColor(GOLD).lineWidth(1.4)
+              .moveTo(170, doc.y).lineTo(425, doc.y).stroke();
+            doc.moveDown(0.7);
+            doc.fillColor(MUTED).font(P.bodyFont).fontSize(P.subtitleSize + 1)
+              .text(s.subtitle, { align: "center" });
+            doc.moveDown(1.5);
+            for (const item of s.summary) {
+              doc.fillColor(INK).fontSize(P.bodySize - 0.5)
+                .font(P.boldFont).text(`${item.label}:  `, { continued: true })
+                .font(P.bodyFont).text(item.value);
+              doc.moveDown(0.15);
+            }
+            doc.moveDown(1);
+            doc.strokeColor("#e0e4ec").lineWidth(0.5)
+              .moveTo(doc.page.margins.left, doc.y)
+              .lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+            doc.moveDown(1);
+            break;
+          }
+          case "info": {
+            const ix = doc.page.margins.left;
+            const iw = doc.page.width - doc.page.margins.left - doc.page.margins.right;
+            const top = doc.y;
+            doc.fillColor(NAVY).font(P.boldFont).fontSize(P.bodySize)
+              .text(s.title, ix + 14, top, { width: iw - 20 });
+            doc.moveDown(0.25);
+            doc.fillColor(INK).font(P.bodyFont).fontSize(P.bodySize - 1);
+            s.acts.forEach((a) => doc.text(`•  ${a}`, ix + 14, doc.y, { width: iw - 20, lineGap: 1 }));
+            if (s.text) {
+              doc.moveDown(0.25);
+              doc.fillColor(MUTED).font(P.bodyFont).fontSize(P.bodySize - 1)
+                .text(s.text, ix + 14, doc.y, { width: iw - 20, lineGap: 1.5 });
+            }
+            const bottom = doc.y;
+            doc.strokeColor(GOLD).lineWidth(2).moveTo(ix + 3, top).lineTo(ix + 3, bottom).stroke();
+            doc.moveDown(0.8);
+            break;
+          }
+          case "page_break":
+            doc.addPage();
+            break;
+          case "annex_signoff":
+            doc.moveDown(0.8);
+            doc.strokeColor(GOLD).lineWidth(0.5)
+              .moveTo(doc.page.margins.left, doc.y)
+              .lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+            doc.moveDown(0.6);
+            doc.fillColor(MUTED).font(P.bodyFont).fontSize(P.bodySize - 1)
+              .text("Executed and signed by the parties as set out above.", { align: "center" });
+            doc.moveDown(0.6);
+            break;
+          case "stamp_page": {
+            doc.addPage();
+            doc.fillColor(NAVY).font(P.boldFont).fontSize(P.titleSize - 2)
+              .text("STAMP DUTY & REGISTRATION", { align: "center", characterSpacing: 1 });
+            doc.moveDown(0.4).strokeColor(GOLD).lineWidth(1.2)
+              .moveTo(200, doc.y).lineTo(395, doc.y).stroke();
+            doc.moveDown(1);
+            const pairs: { label: string; value: string }[] = [
+              { label: "Jurisdiction", value: s.jurisdiction },
+              { label: "Stamp value", value: s.stampValue },
+              { label: "Execution", value: s.instruction },
+            ];
+            for (const kv of pairs) {
+              doc.fillColor(GOLD).font(P.boldFont).fontSize(P.subtitleSize)
+                .text(kv.label.toUpperCase(), { characterSpacing: 1 });
+              doc.moveDown(0.15);
+              doc.fillColor(INK).font(P.bodyFont).fontSize(P.bodySize)
+                .text(kv.value, { lineGap: P.lineGap });
+              doc.moveDown(0.6);
+            }
+            const rt = doc.y;
+            doc.fillColor(NAVY).font(P.boldFont).fontSize(P.bodySize)
+              .text(s.registrationNote, doc.page.margins.left + 14, rt,
+                { width: doc.page.width - doc.page.margins.left - doc.page.margins.right - 20, lineGap: P.lineGap });
+            doc.strokeColor(GOLD).lineWidth(2)
+              .moveTo(doc.page.margins.left + 3, rt).lineTo(doc.page.margins.left + 3, doc.y).stroke();
+            doc.moveDown(1);
+            break;
+          }
         }
       }
 

@@ -213,6 +213,116 @@ export async function renderXlsx(
       case "spacer":
         row += s.height || 1;
         break;
+      case "cover": {
+        ws.mergeCells(row, 1, row, 4);
+        const ct = ws.getCell(row, 1);
+        ct.value = s.title;
+        ct.style = titleStyle;
+        ws.getRow(row).height = 34;
+        row++;
+        ws.mergeCells(row, 1, row, 4);
+        const cs = ws.getCell(row, 1);
+        cs.value = s.subtitle;
+        cs.style = {
+          font: { name: "Calibri", size: 10, color: { argb: MUTED } },
+          alignment: { horizontal: "center" },
+        };
+        row += 2;
+        for (const item of s.summary) {
+          ws.getCell(row, 1).value = item.label;
+          ws.getCell(row, 1).font = { name: "Calibri", size: 10, color: { argb: MUTED } };
+          ws.mergeCells(row, 2, row, 4);
+          ws.getCell(row, 2).value = item.value;
+          ws.getCell(row, 2).font = { name: "Calibri", size: 11, bold: true, color: { argb: INK } };
+          row++;
+        }
+        row++;
+        ws.mergeCells(row, 1, row, 4);
+        ws.getCell(row, 1).border = { bottom: { style: "medium", color: { argb: GOLD } } };
+        row += 2;
+        break;
+      }
+      case "info": {
+        ws.mergeCells(row, 1, row, 4);
+        const it = ws.getCell(row, 1);
+        it.value = s.title;
+        it.fill = { type: "pattern", pattern: "solid", fgColor: { argb: GOLD_LIGHT } };
+        it.font = { name: "Calibri", size: 11, bold: true, color: { argb: NAVY } };
+        row++;
+        for (const a of s.acts) {
+          ws.mergeCells(row, 1, row, 4);
+          const ac = ws.getCell(row, 1);
+          ac.value = `\u2022  ${a}`;
+          ac.alignment = { wrapText: true, vertical: "top" };
+          ac.font = { name: "Calibri", size: 10, color: { argb: INK } };
+          ac.fill = { type: "pattern", pattern: "solid", fgColor: { argb: GOLD_LIGHT } };
+          row++;
+        }
+        if (s.text) {
+          ws.mergeCells(row, 1, row, 4);
+          const tx = ws.getCell(row, 1);
+          tx.value = s.text;
+          tx.alignment = { wrapText: true, vertical: "top" };
+          tx.font = { name: "Calibri", size: 10, italic: true, color: { argb: MUTED } };
+          tx.fill = { type: "pattern", pattern: "solid", fgColor: { argb: GOLD_LIGHT } };
+          ws.getRow(row).height = Math.max(20, Math.ceil(s.text.length / 90) * 16);
+          row++;
+        }
+        row += 2;
+        break;
+      }
+      case "page_break": {
+        ws.getRow(row).addPageBreak();
+        row += 1;
+        break;
+      }
+      case "annex_signoff": {
+        ws.mergeCells(row, 1, row, 4);
+        ws.getCell(row, 1).border = { bottom: { style: "medium", color: { argb: GOLD } } };
+        row++;
+        ws.mergeCells(row, 1, row, 4);
+        const as = ws.getCell(row, 1);
+        as.value = "Executed and signed by the parties as set out above.";
+        as.alignment = { horizontal: "center" };
+        as.font = { name: "Calibri", size: 10, italic: true, color: { argb: MUTED } };
+        row += 2;
+        break;
+      }
+      case "stamp_page": {
+        ws.getRow(row).addPageBreak();
+        row++;
+        ws.mergeCells(row, 1, row, 4);
+        const sh = ws.getCell(row, 1);
+        sh.value = "STAMP DUTY & REGISTRATION";
+        sh.style = titleStyle;
+        ws.getRow(row).height = 30;
+        row += 2;
+        ([
+          ["Jurisdiction", s.jurisdiction],
+          ["Stamp value", s.stampValue],
+          ["Execution", s.instruction],
+        ] as [string, string][]).forEach(([label, value]) => {
+          ws.getCell(row, 1).value = label;
+          ws.getCell(row, 1).font = { name: "Calibri", size: 10, bold: true, color: { argb: GOLD } };
+          ws.mergeCells(row, 2, row, 4);
+          const vc = ws.getCell(row, 2);
+          vc.value = value;
+          vc.alignment = { wrapText: true, vertical: "top" };
+          vc.font = { name: "Calibri", size: 11, color: { argb: INK } };
+          ws.getRow(row).height = Math.max(20, Math.ceil(value.length / 70) * 16);
+          row++;
+        });
+        row++;
+        ws.mergeCells(row, 1, row, 4);
+        const rn = ws.getCell(row, 1);
+        rn.value = s.registrationNote;
+        rn.alignment = { wrapText: true, vertical: "top" };
+        rn.font = { name: "Calibri", size: 10, bold: true, color: { argb: NAVY } };
+        rn.fill = { type: "pattern", pattern: "solid", fgColor: { argb: GOLD_LIGHT } };
+        ws.getRow(row).height = Math.max(24, Math.ceil(s.registrationNote.length / 90) * 16);
+        row += 2;
+        break;
+      }
       case "footer":
         break;
     }
