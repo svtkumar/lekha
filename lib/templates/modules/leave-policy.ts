@@ -7,7 +7,7 @@ export const leavePolicy: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf"],
+    formats: ["pdf", "docx"],
     description: "Company leave policy covering Casual Leave, Sick Leave, Earned/Privilege Leave, Maternity, Paternity, and Bereavement leave. Configurable leave days and carry-forward rules.",
     aliases: ["CL", "SL", "EL", "maternity", "leave policy", "annual leave", "holiday policy"],
     pages: 5,

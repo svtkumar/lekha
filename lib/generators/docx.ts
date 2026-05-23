@@ -1,6 +1,6 @@
 import {
   Document, Packer, Paragraph, TextRun, AlignmentType, Footer, PageNumber, Header,
-  BorderStyle, Table, TableRow, TableCell, WidthType, convertInchesToTwip, ShadingType,
+  BorderStyle, Table, TableRow, TableCell, WidthType, convertInchesToTwip, ShadingType, PageBreak,
 } from "docx";
 import type { DocSection, StyleProfile } from "../templates/types";
 
@@ -170,6 +170,120 @@ export async function renderDocx(
           const rows: TableRow[] = [rowCells(s.headers, true), ...s.rows.map((r) => rowCells(r, false))];
           (children as unknown as (Paragraph | Table)[]).push(new Table({
             rows, width: { size: 100, type: WidthType.PERCENTAGE },
+          }));
+          children.push(new Paragraph({ children: [], spacing: { after: 200 } }));
+        }
+        break;
+      case "cover":
+        children.push(new Paragraph({
+          children: [t(s.title, P.titleHP + 4, NAVY, true)],
+          alignment: AlignmentType.CENTER, spacing: { before: 400, after: 120 },
+        }));
+        children.push(new Paragraph({
+          children: [t("— — — — —", P.subtitleHP + 4, GOLD)],
+          alignment: AlignmentType.CENTER, spacing: { after: 160 },
+        }));
+        children.push(new Paragraph({
+          children: [t(s.subtitle, P.subtitleHP + 2, MUTED)],
+          alignment: AlignmentType.CENTER, spacing: { after: 320 },
+        }));
+        for (const item of s.summary) {
+          children.push(new Paragraph({
+            children: [t(`${item.label}:  `, P.bodyHP - 1, MUTED), t(item.value, P.bodyHP - 1, INK, true)],
+            alignment: AlignmentType.CENTER, spacing: { after: 80 },
+          }));
+        }
+        children.push(new Paragraph({
+          border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: GOLD } },
+          spacing: { after: 240, before: 160 },
+        }));
+        break;
+      case "info":
+        {
+          const infoCell = new TableCell({
+            shading: { type: ShadingType.CLEAR, color: "auto", fill: CREAM },
+            margins: { top: 120, bottom: 120, left: 160, right: 160 },
+            children: [
+              new Paragraph({ children: [t(s.title, P.bodyHP, NAVY, true)], spacing: { after: 100 } }),
+              ...s.acts.map((a) => new Paragraph({
+                children: [t("•  ", P.bodyHP - 2, GOLD, true), t(a, P.bodyHP - 2, INK)],
+                indent: { left: convertInchesToTwip(0.15) }, spacing: { after: 60 },
+              })),
+              ...(s.text ? [new Paragraph({
+                children: [t(s.text, P.bodyHP - 2, MUTED)],
+                spacing: { before: 100 }, alignment: P.bodyAlign,
+              })] : []),
+            ],
+          });
+          (children as unknown as (Paragraph | Table)[]).push(new Table({
+            rows: [new TableRow({ children: [infoCell] })],
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            borders: {
+              top: { style: BorderStyle.SINGLE, size: 2, color: GOLD },
+              bottom: { style: BorderStyle.SINGLE, size: 2, color: GOLD },
+              left: { style: BorderStyle.SINGLE, size: 12, color: GOLD },
+              right: { style: BorderStyle.SINGLE, size: 2, color: GOLD },
+              insideHorizontal: { style: BorderStyle.NONE, size: 0, color: "auto" },
+              insideVertical: { style: BorderStyle.NONE, size: 0, color: "auto" },
+            },
+          }));
+          children.push(new Paragraph({ children: [], spacing: { after: 200 } }));
+        }
+        break;
+      case "page_break":
+        children.push(new Paragraph({ children: [new PageBreak()] }));
+        break;
+      case "annex_signoff":
+        children.push(new Paragraph({
+          border: { top: { style: BorderStyle.SINGLE, size: 4, color: GOLD } },
+          spacing: { before: 200, after: 120 },
+        }));
+        children.push(new Paragraph({
+          children: [t("Executed and signed by the parties as set out above.", P.bodyHP - 1, MUTED)],
+          alignment: AlignmentType.CENTER, spacing: { after: 200 },
+        }));
+        break;
+      case "stamp_page":
+        children.push(new Paragraph({ children: [new PageBreak()] }));
+        children.push(new Paragraph({
+          children: [t("STAMP DUTY & REGISTRATION", P.titleHP - 4, NAVY, true)],
+          alignment: AlignmentType.CENTER, spacing: { after: 120, before: 120 },
+        }));
+        children.push(new Paragraph({
+          children: [t("— — — — —", P.subtitleHP + 4, GOLD)],
+          alignment: AlignmentType.CENTER, spacing: { after: 240 },
+        }));
+        ([
+          ["Jurisdiction", s.jurisdiction],
+          ["Stamp value", s.stampValue],
+          ["Execution", s.instruction],
+        ] as [string, string][]).forEach(([label, value]) => {
+          children.push(new Paragraph({
+            children: [t(label.toUpperCase(), P.subtitleHP - 2, GOLD, true)],
+            spacing: { after: 40, before: 120 },
+          }));
+          children.push(new Paragraph({
+            children: [t(value)],
+            alignment: P.bodyAlign, spacing: { after: 120, line: P.lineSpacing },
+          }));
+        });
+        {
+          const regCell = new TableCell({
+            shading: { type: ShadingType.CLEAR, color: "auto", fill: CREAM },
+            margins: { top: 120, bottom: 120, left: 160, right: 160 },
+            children: [new Paragraph({ children: [t(s.registrationNote, P.bodyHP, NAVY, true)] })],
+          });
+          (children as unknown as (Paragraph | Table)[]).push(new Table({
+            rows: [new TableRow({ children: [regCell] })],
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            borders: {
+              top: { style: BorderStyle.SINGLE, size: 2, color: GOLD },
+              bottom: { style: BorderStyle.SINGLE, size: 2, color: GOLD },
+              left: { style: BorderStyle.SINGLE, size: 12, color: GOLD },
+              right: { style: BorderStyle.SINGLE, size: 2, color: GOLD },
+              insideHorizontal: { style: BorderStyle.NONE, size: 0, color: "auto" },
+              insideVertical: { style: BorderStyle.NONE, size: 0, color: "auto" },
+            },
           }));
           children.push(new Paragraph({ children: [], spacing: { after: 200 } }));
         }

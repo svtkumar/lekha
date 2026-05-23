@@ -25,7 +25,7 @@ export const professionalTaxChallan: TemplateModule = {
     categoryId: "compliance",
     category: "Tax & Compliance",
     country: ["IN"],
-    formats: ["pdf", "docx"],
+    formats: ["pdf", "docx", "xlsx"],
     description:
       "Monthly professional tax deduction working sheet and challan summary for employers. Covers all major PT states — Maharashtra, Karnataka, West Bengal, AP/Telangana, Tamil Nadu, Gujarat, MP, Odisha, Kerala — with applicable salary slabs, deduction amounts, and payment due dates. Includes employee-wise register and Form III / annual return reference.",
     aliases: [

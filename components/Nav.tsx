@@ -12,6 +12,7 @@ export default function Nav() {
         <nav className="nav-links" aria-label="Main">
           <Link href="/templates">Templates</Link>
           <Link href="/redactor">Redactor</Link>
+          <Link href="/dharma">Dharma</Link>
           <Link href="/earn">Earn</Link>
           <Link href="/templates" className="nav-cta">
             Browse templates <span aria-hidden="true">→</span>

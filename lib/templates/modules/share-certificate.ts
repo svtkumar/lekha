@@ -22,7 +22,7 @@ export const shareCertificate: TemplateModule = {
     categoryId: "companies",
     category: "Companies & MCA",
     country: ["IN"],
-    formats: ["pdf", "docx"],
+    formats: ["pdf", "docx", "xlsx"],
     description:
       "Formal share certificate in the form prescribed under the Companies Act 2013 (Schedule I Table F / Rule 5). Issued to a member on allotment or transfer. Includes all statutory fields, duplicate certificate provisions, and a transmission/split record table.",
     aliases: [

@@ -79,7 +79,12 @@ export type DocSection =
   | { kind: "footer"; text: string }
   | { kind: "spacer"; height?: number }
   | { kind: "table"; headers: string[]; rows: string[][]; widths?: number[] }
-  | { kind: "kv"; pairs: { label: string; value: string }[] };
+  | { kind: "kv"; pairs: { label: string; value: string }[] }
+  | { kind: "cover"; title: string; subtitle: string; summary: { label: string; value: string }[] }
+  | { kind: "info"; title: string; acts: string[]; text: string }
+  | { kind: "page_break" }
+  | { kind: "annex_signoff" }
+  | { kind: "stamp_page"; jurisdiction: string; stampValue: string; instruction: string; registrationNote: string };
 
 export type Category = {
   id: string;

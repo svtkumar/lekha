@@ -7,7 +7,7 @@ export const incrementLetter: TemplateModule = {
     categoryId: "hr",
     category: "HR & Workplace",
     country: ["IN"],
-    formats: ["pdf"],
+    formats: ["pdf", "docx"],
     description: "Formal salary revision / increment letter with revised CTC breakup. Covers performance-based increment, effective date, and revised pay components.",
     aliases: ["salary revision", "appraisal letter", "increment letter", "pay hike letter", "salary hike letter"],
     pages: 1,
