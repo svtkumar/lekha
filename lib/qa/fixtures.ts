@@ -361,4 +361,18 @@ export const fixtures: Record<string, Fixture> = {
     la_notice_months: "3",
     la_custom: "",
   },
+
+  "data-governance-policy": {
+    dg_org_name: "Acme Technologies Pvt Ltd",
+    dg_effective_date: "2026-01-01",
+    dg_review_date: "2027-01-01",
+    dg_dpo_name: "Vikram Patel",
+    dg_dpo_email: "privacy@acme.test",
+    dg_approver_name: "Board of Directors",
+    dg_scope: "customer_employee",
+    dg_processes_children: "yes",
+    dg_intl_transfer: "yes",
+    dg_retention_months: "36",
+    dg_breach_hours: "72",
+  },
 };

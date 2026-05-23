@@ -55,12 +55,6 @@ export const dataGovernancePolicy: TemplateModule = {
       ],
     },
   ],
-  validate(e) {
-    const warnings: string[] = [];
-    if (!e.dg_dpo_email) warnings.push("A grievance / privacy contact email is strongly recommended for DPDP s.13 and GDPR Art.13 compliance.");
-    if (e.dg_processes_children === "yes") warnings.push("Processing children's data triggers verifiable parental-consent obligations (DPDP s.9).");
-    return warnings;
-  },
   render(e): DocSection[] {
     const blocks: DocSection[] = [];
     const org = e.dg_org_name || "[Organisation Name]";
